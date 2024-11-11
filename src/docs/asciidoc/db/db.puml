@@ -1,6 +1,19 @@
 @startuml
 
-client -> alice
-alice -> client
+left to right direction
+
+class Задача {
+    идентификатор задачи (PK)
+    заголовок
+    описание
+    идентификатор статуса (FK)
+}
+
+class Статус {
+    идентификатор статуса (PK)
+    наименование
+}
+
+Задача "0..n" -- "1" Статус
 
 @enduml
