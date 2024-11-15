@@ -1,0 +1,22 @@
+name: Publish to GitHub Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+#    - name: Install Asciidoctor-PlantUml
+#      run: gem install asciidoctor-plantuml
+    - name: Process Documents
+      run: |
+#        set PLANTUML_URL=https://www.plantuml.com/plantuml
+#        set PLANTUML_ENCODING=deflate
+        asciidoctor -D build/site -R src/docs/asciidoc **/*.adoc
+    - name: Publish to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: build/site
